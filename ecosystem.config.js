@@ -5,7 +5,7 @@ module.exports = {
     watch  : true,
     env: {
       NODE_ENV: "development",
-      PORT: 4801,
+      PORT: 4901,
       APP_ID: 'BtayVajHGy5dnmykZK4JRtV0',
       APP_SECRET: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
       API_SERVER_URL: 'http://kaierbase-dev.xiaojee.cn',
@@ -14,7 +14,7 @@ module.exports = {
     },
     env_staging : {
       NODE_ENV: "staging",
-      PORT: 4802,
+      PORT: 4902,
       APP_ID: 'BtayVajHGy5dnmykZK4JRtV0',
       APP_SECRET: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
       API_SERVER_URL: 'http://kaierbase-dev.xiaojee.cn',
@@ -23,7 +23,7 @@ module.exports = {
     },
     env_production : {
       NODE_ENV: "production",
-      PORT: 4803,
+      PORT: 4903,
       APP_ID: 'BtayVajHGy5dnmykZK4JRtV0',
       APP_SECRET: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
       API_SERVER_URL: 'http://kaierbase.xiaojee.cn',
