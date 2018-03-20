@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name   : "KaierPlanetBase",
+    name   : "KaierPlanetCloud",
     script : "./bin/www",
     watch  : true,
     env: {
