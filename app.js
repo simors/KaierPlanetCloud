@@ -4,6 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var LY = require('lvyii-engine');
+
+LY.init({
+  appId: 'BtayVajHGy5dnmykZK4JRtV0',
+  appKey: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
+  serverURLs: {
+    auth: 'http://kaierbase.xiaojee.cn',
+    api: 'http://kaierbase.xiaojee.cn',
+    engine: 'http://kaiercloud.xiaojee.cn'
+  }
+})
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +32,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(LY.express())
 
 app.use('/', index);
 app.use('/users', users);
