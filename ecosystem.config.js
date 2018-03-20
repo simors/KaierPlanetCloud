@@ -17,9 +17,9 @@ module.exports = {
       PORT: 4902,
       APP_ID: 'BtayVajHGy5dnmykZK4JRtV0',
       APP_SECRET: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
-      API_SERVER_URL: 'http://kaierbase-dev.xiaojee.cn',
-      AUTH_SERVER_URL: 'http://kaierbase-dev.xiaojee.cn',
-      ENGINE_SERVER_URL: 'http://kaiercloud-dev.xiaojee.cn',
+      API_SERVER_URL: 'http://kaierbase-stage.xiaojee.cn',
+      AUTH_SERVER_URL: 'http://kaierbase-stage.xiaojee.cn',
+      ENGINE_SERVER_URL: 'http://kaiercloud-stage.xiaojee.cn',
     },
     env_production : {
       NODE_ENV: "production",
