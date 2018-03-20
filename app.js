@@ -7,12 +7,12 @@ var bodyParser = require('body-parser');
 var LY = require('lvyii-engine');
 
 LY.init({
-  appId: 'BtayVajHGy5dnmykZK4JRtV0',
-  appKey: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
+  appId: process.env.APP_ID,
+  appKey: process.env.APP_SECRET,
   serverURLs: {
-    auth: 'http://kaierbase.xiaojee.cn',
-    api: 'http://kaierbase.xiaojee.cn',
-    engine: 'http://kaiercloud.xiaojee.cn'
+    auth: process.env.AUTH_SERVER_URL,
+    api: process.env.API_SERVER_URL,
+    engine: process.env.ENGINE_SERVER_URL
   }
 })
 
