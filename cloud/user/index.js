@@ -2,7 +2,7 @@
  * Created by lilu on 2018/3/21.
  */
 var mongoose = require('mongoose')
-
+import {mongodb_url} from '../config'
 /**
  * 定义一个用户的结构
  */
@@ -18,10 +18,10 @@ export const UserSchema = new mongoose.Schema({
 
 async function testUser(request) {
   // var db = mongoose.createConnection('193.112.106.11','KaierPlanet_dev')
-  mongoose.connect('mongodb://193.112.106.11/KaierPlanet_dev');
+  mongoose.connect(mongodb_url._DEV_);
   var db = mongoose.connection
   db.on('error',console.error.bind(console,'连接错误:'));
-  db.once('open',function(){
+  db.once('open',() => {
     // return 'i m open '
     //一次打开记录
   })
