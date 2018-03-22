@@ -888,8 +888,8 @@ form-data@^2.3.1:
     mime-types "^2.1.12"
 
 formidable@^1.1.1:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/formidable/-/formidable-1.2.0.tgz#ce291bfec67c176e282f891ece2c37de0c83ae84"
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/formidable/-/formidable-1.2.1.tgz#70fb7ca0290ee6ff961090415f4b3df3d2082659"
 
 forwarded@~0.1.0:
   version "0.1.2"
