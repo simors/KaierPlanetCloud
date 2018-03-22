@@ -11,24 +11,27 @@ module.exports = {
       API_SERVER_URL: 'http://localhost',
       AUTH_SERVER_URL: 'http://localhost',
       ENGINE_SERVER_URL: 'http://localhost',
+      // API_SERVER_URL: 'https://kaierbase-dev.xiaojee.cn',
+      // AUTH_SERVER_URL: 'https://kaierbase-dev.xiaojee.cn',
+      // ENGINE_SERVER_URL: 'https://kaiercloud-dev.xiaojee.cn',
     },
     env_staging : {
       NODE_ENV: "staging",
       PORT: 4902,
       APP_ID: 'BtayVajHGy5dnmykZK4JRtV0',
       APP_SECRET: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
-      API_SERVER_URL: 'http://kaierbase-stage.xiaojee.cn',
-      AUTH_SERVER_URL: 'http://kaierbase-stage.xiaojee.cn',
-      ENGINE_SERVER_URL: 'http://kaiercloud-stage.xiaojee.cn',
+      API_SERVER_URL: 'https://kaierbase-stage.xiaojee.cn',
+      AUTH_SERVER_URL: 'https://kaierbase-stage.xiaojee.cn',
+      ENGINE_SERVER_URL: 'https://kaiercloud-stage.xiaojee.cn',
     },
     env_production : {
       NODE_ENV: "production",
       PORT: 4903,
       APP_ID: 'BtayVajHGy5dnmykZK4JRtV0',
       APP_SECRET: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
-      API_SERVER_URL: 'http://kaierbase.xiaojee.cn',
-      AUTH_SERVER_URL: 'http://kaierbase.xiaojee.cn',
-      ENGINE_SERVER_URL: 'http://kaiercloud.xiaojee.cn',
+      API_SERVER_URL: 'https://kaierbase.xiaojee.cn',
+      AUTH_SERVER_URL: 'https://kaierbase.xiaojee.cn',
+      ENGINE_SERVER_URL: 'https://kaiercloud.xiaojee.cn',
     }
   }]
 }
