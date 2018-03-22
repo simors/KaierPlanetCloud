@@ -1043,25 +1043,25 @@ loose-envify@^1.0.0:
   dependencies:
     js-tokens "^3.0.0"
 
-lvyii-engine@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.npmjs.org/lvyii-engine/-/lvyii-engine-0.0.10.tgz#6609ebeadd9e43ed776045f7b0deff8bf06c4d1f"
+lvyii-engine@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.npmjs.org/lvyii-engine/-/lvyii-engine-0.0.11.tgz#648c518554ec235db84b08bc64cbe40aa0c03e04"
   dependencies:
     body-parser "^1.18.2"
     connect "^3.6.5"
     connect-timeout "^1.9.0"
     debug "^3.1.0"
     lvyii_cors_headers "^0.0.5"
-    lvyii_storage "^0.0.14"
+    lvyii_storage "^0.0.15"
     underscore "^1.8.3"
 
 lvyii_cors_headers@^0.0.5:
   version "0.0.5"
   resolved "https://registry.npmjs.org/lvyii_cors_headers/-/lvyii_cors_headers-0.0.5.tgz#1ee2996d939e8cd4b2fd8b17c2ff9e7328e896ec"
 
-lvyii_storage@^0.0.14:
-  version "0.0.14"
-  resolved "https://registry.npmjs.org/lvyii_storage/-/lvyii_storage-0.0.14.tgz#6aef3db45377d635f9428bea5cb62e532708dd78"
+lvyii_storage@^0.0.15:
+  version "0.0.15"
+  resolved "https://registry.npmjs.org/lvyii_storage/-/lvyii_storage-0.0.15.tgz#2fa150e068478dd23b15349cac3e4dd50a6d505b"
   dependencies:
     debug "^3.1.0"
     es6-promise "^4.1.1"
