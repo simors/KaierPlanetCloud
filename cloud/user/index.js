@@ -3,9 +3,17 @@
  */
 var mongoose = require('mongoose')
 
-const PersonSchema = new mongoose.Schema({
+/**
+ * 定义一个用户的结构
+ */
+export const UserSchema = new mongoose.Schema({
   name: String,
-  sex: String, //定义一个属性name，类型为String
+  sex: String,
+  crystal: Number,   //凯林水晶数
+  engine: Number,    //可以获得的幽能数
+  lastLoginDate: Date,   //最后登陆时间
+
+
 },{collection: 'User'})
 
 async function testUser(request) {
@@ -18,11 +26,11 @@ async function testUser(request) {
     //一次打开记录
   })
   ;
-  var PersonModel = db.model('lilu', PersonSchema)
+  var UserModel = db.model('lilu', UserSchema)
   // var personEntity = new PersonModel({name:'lily', sex: 'female'});
   // return personEntity.save()
-  let persons = await PersonModel.find({name:'lily'},'name sex')
-  return persons
+  let userList = await UserModel.find({name:'lily'},'name sex')
+  return userList
 }
 
 
