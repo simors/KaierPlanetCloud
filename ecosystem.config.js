@@ -8,9 +8,9 @@ module.exports = {
       PORT: 4901,
       APP_ID: 'BtayVajHGy5dnmykZK4JRtV0',
       APP_SECRET: 'vVSHw5yXxSQSHt95a3WVdNt4Rs6MYCkH',
-      API_SERVER_URL: 'http://kaierbase-dev.xiaojee.cn',
-      AUTH_SERVER_URL: 'http://kaierbase-dev.xiaojee.cn',
-      ENGINE_SERVER_URL: 'http://kaiercloud-dev.xiaojee.cn',
+      API_SERVER_URL: 'http://localhost',
+      AUTH_SERVER_URL: 'http://localhost',
+      ENGINE_SERVER_URL: 'http://localhost',
     },
     env_staging : {
       NODE_ENV: "staging",
