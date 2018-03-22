@@ -13,6 +13,7 @@ const MISSION_TYPE = {
   CREDIT_CARD: 10,
 }
 
+let testSum = 0
 /**
  * 计算所有水晶总数
  * @returns {*}
@@ -30,6 +31,7 @@ async function crystalSum(){
       for(let i=0;i< userList.length;i++){
         crystalSum = crystalSum + userList[i].crystal
       }
+      testSum = crystalSum
       return crystalSum
     }
   }catch(e){
@@ -55,23 +57,48 @@ async function getMissionAward(params){
   db.on('error',console.error.bind(console,'连接错误:'));
   db.once('open',(err) => {return err})
   var UserModel = db.model('User', UserSchema)
-  UserModel.findById(userId, function (err, user) {
-    if (err) return err;
-    if(!user.crystal){
-      user.crystal= missionType
+  let user = await UserModel.findById(userId)
+  if(!user.crystal){
+    user.crystal= missionType
+  }else{
+    let crystal = user.crystal + missionType
+    user.crystal= crystal
+  }
+  let updateUser = await user.save()
+  return updateUser
+}
+
+
+/**
+ * 设置用户赢得的幽能
+ * @param userId
+ * @returns {*}
+ */
+async function addDeserveEngine(userId){
+    userId = '5ab27e0cdb5bae16106e4332'
+  mongoose.connect(mongodb_url._DEV_);
+  var db = mongoose.connection
+  db.on('error',console.error.bind(console,'连接错误:'));
+  db.once('open',(err) => {return err})
+  var UserModel = db.model('User', UserSchema)
+  try{
+    let sum = testSum?testSum:await crystalSum()
+    let user = await UserModel.findById(userId)
+    if(!user.engine){
+      user.engine = (user.crystal/sum)*200
     }else{
-      let crystal = user.crystal + missionType
-      user.crystal= crystal
+      user.engine = user.engine + user.crystal*200/sum
     }
-    user.save(function (err, updateUser) {
-      if (err) return err;
-      return updateUser
-    });
-  })
+    let updateUser = await user.save()
+    return updateUser
+  }catch (e){
+    return e.message
+  }
 
 }
 
 export const missionFuncs = {
   getMissionAward,
-  crystalSum
+  crystalSum,
+  addDeserveEngine
 }

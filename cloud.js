@@ -14,3 +14,4 @@ LY.Cloud.define('mongooseTest', userFunctions.testUser)
 //mission
 LY.Cloud.define('getMissionAward', missionFuncs.getMissionAward)
 LY.Cloud.define('crystalSum', missionFuncs.crystalSum)
+LY.Cloud.define('setDeserveEngine', missionFuncs.addDeserveEngine)

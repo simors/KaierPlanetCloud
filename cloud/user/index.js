@@ -3,8 +3,10 @@
  */
 var mongoose = require('mongoose')
 import {mongodb_url} from '../config'
+
+
 /**
- * 定义一个用户的结构
+ * 定义用户的结构给用户MODAL使用
  */
 export const UserSchema = new mongoose.Schema({
   name: String,
