@@ -29,10 +29,10 @@ async function testUser(request) {
   })
   ;
   var UserModel = db.model('lilu', UserSchema)
-  // var personEntity = new PersonModel({name:'lily', sex: 'female'});
-  // return personEntity.save()
-  let userList = await UserModel.find({name:'lily'},'name sex')
-  return userList
+  var personEntity = new UserModel({name:'lily', sex: 'female'});
+  return personEntity.save()
+  // let userList = await UserModel.find({name:'lily'},'name sex')
+  // return userList
 }
 
 
