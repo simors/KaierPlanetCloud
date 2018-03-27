@@ -36,14 +36,43 @@ async function createETHUser(){
   return user
 }
 
+async function testCon2(){
+  var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
+  // let wallet = web3.eth.accounts.wallet.add(testContract.privateKey)
+  // return wallet
+  web3.eth.defaultAccount = testContract.address
+  // web3.eth.personal.unlockAccount(testContract.address)
+  var myCon = new web3.eth.Contract(abi,testContract.conAddress)
+
+  let bal = await myCon.methods.transfer(testUser.address,100).send({from: testContract.address, gas: 600})
+
+  return bal
+
+}
+
 async function testCon(){
   var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
+  console.log('web3.currentProvider',web3.eth.currentProvider)
   let wallet = web3.eth.accounts.wallet.add(testContract.privateKey)
   // return wallet
   web3.eth.defaultAccount = testContract.address
-  var myCon = new web3.eth.Contract(abi,testContract.conAddress)
+  let balance = await web3.eth.getBalance(testContract.address)
+  let gasPrice = await web3.eth.getGasPrice()
+  console.log('balance========>',balance)
+  console.log('gasPrice========>',gasPrice)
+  // let coinBase = await web3.eth.getCoinbase()
+  // console.log('coinBase========>',coinBase)
 
-  let bal = await myCon.methods.transfer(testUser.address,555).send({from: wallet.})
+  console.log('web3.eth.defaultAccount ====>',web3.eth.defaultAccount )
+  // web3.eth.personal.unlockAccount(testContract.address)
+  var myCon = new web3.eth.Contract(abi,testContract.conAddress,{from: testContract.address})
+  //
+  // let bal = await myCon.methods.balanceOf(testContract.address).call()
+  let estimateGas = await myCon.methods.transfer(testUser.address,100).estimateGas()
+  console.log('estimateGas=========>',estimateGas*gasPrice)
+  console.log('estimateGas=========>',balance)
+  let bal = await myCon.methods.transfer(testUser.address,100).send({from: wallet.address, gas: 34674})
+
   return bal
 
 }
