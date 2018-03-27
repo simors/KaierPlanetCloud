@@ -52,29 +52,58 @@ async function testCon2(){
 
 async function testCon(){
   var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-  console.log('web3.currentProvider',web3.eth.currentProvider)
+  // console.log('web3.currentProvider',web3.eth.currentProvider)
   let wallet = web3.eth.accounts.wallet.add(testContract.privateKey)
-  // return wallet
+  let Paccount = web3.eth.accounts.privateKeyToAccount(testContract.privateKey);
+  console.log('paccount=======>',Paccount)
+  let wallet2 = web3.eth.accounts.wallet
+   // console.log('wallet=========>',wallet2)
+  console.log('wallet.addres=========>',wallet)
+
   web3.eth.defaultAccount = testContract.address
-  let balance = await web3.eth.getBalance(testContract.address)
-  let gasPrice = await web3.eth.getGasPrice()
+  // console.log('account===>',await web3.eth.getAccounts())
+  let balance = await web3.eth.getBalance(wallet.address)
+  // let gasPrice = await web3.eth.getGasPrice()
   console.log('balance========>',balance)
-  console.log('gasPrice========>',gasPrice)
-  // let coinBase = await web3.eth.getCoinbase()
-  // console.log('coinBase========>',coinBase)
-
-  console.log('web3.eth.defaultAccount ====>',web3.eth.defaultAccount )
-  // web3.eth.personal.unlockAccount(testContract.address)
-  var myCon = new web3.eth.Contract(abi,testContract.conAddress,{from: testContract.address})
+  // console.log('gasPrice========>',gasPrice)
+  // // let coinBase = await web3.eth.getCoinbase()
+  // // console.log('coinBase========>',coinBase)
   //
-  // let bal = await myCon.methods.balanceOf(testContract.address).call()
-  let estimateGas = await myCon.methods.transfer(testUser.address,100).estimateGas()
-  console.log('estimateGas=========>',estimateGas*gasPrice)
-  console.log('estimateGas=========>',balance)
-  let bal = await myCon.methods.transfer(testUser.address,100).send({from: wallet.address, gas: 34674})
+  // console.log('web3.eth.defaultAccount ====>',web3.eth.defaultAccount )
+  // web3.eth.personal.unlockAccount(testContract.address)
+  var myCon = new web3.eth.Contract(abi,testContract.conAddress)
+  // console.log('myCon==>',myCon.options)
+  //
+  // let bal = await myCon.methods.balanceOf(wallet.address).call()
+  // console.log('bal=====>',bal)
+  // let estimateGas = await myCon.methods.transfer(testUser.address,100).estimateGas()
+  // console.log('estimateGas=========>',estimateGas*gasPrice)
+  // console.log('estimateGas=========>',balance)
+  // web3.eth.sendTransaction({
+  //   from: wallet.address,
+  //   to: testUser.address,
+  //   gas: 21000,
+  //   value: 5000000
+  // },(err,result)=>{
+  //   if(err){
+  //     console.log('err=====>',err)
+  //     return err
+  //   }else{
+  //     console.log('result=====>',result)
+  //     return result
+  //   }
+  // })
+  // let bal = await myCon.methods.transfer(testUser.address,100).send({from: wallet.address, gas: 34674})
+  // return bal
 
-  return bal
-
+  myCon.methods.transfer(testUser.address,100).send({from: wallet.address, gas:500000}).on('transactionHash',(hash)=>{
+    console.log('hash=========>',hash)
+  }).on('confirmation', function(confirmationNumber, receipt){
+    console.log('confirmationNumber=======>',confirmationNumber)
+  }).on('receipt', function( receipt){
+    console.log('receipt======>',receipt)
+    return receipt
+  }).on('error', console.error)
 }
 
 export const ethFuncs = {
