@@ -21,6 +21,9 @@ LY.init({
 
 require('./cloud')
 
+// 初始化mongodb的连接
+require('./cloud/util/mongdUtil')
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 

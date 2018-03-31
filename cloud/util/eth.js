@@ -2,12 +2,16 @@
  * Created by lilu on 2018/3/24.
  */
 var Web3 = require('web3');
+var secp256k1 = require('secp256k1/elliptic')
+var createKeccakHash = require('keccak')
+var crypto = require('crypto')
 
+var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
 
 let abi = [{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"initialSupply","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 let testContract = {
   address: '0x5A498f4109cba199173A8827729690c5258224f5' ,
-  privateKey: 'd606e705e3e89f193de90fb1b00e25ce4ee07eb89bb4a62c9f22f496bc89ce8a',
+  privateKey: '0xd606e705e3e89f193de90fb1b00e25ce4ee07eb89bb4a62c9f22f496bc89ce8a',
   conAddress: '0x578BC65cac465A2cFD328bA620aFd34e617199e0'
 }
 
@@ -30,12 +34,6 @@ async function testAccounts(){
   return await web3.eth.getAccounts()
 }
 
-async function createETHUser(){
-  var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-  let user = web3.eth.accounts.create()
-  return user
-}
-
 async function testCon2(){
   var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
   // let wallet = web3.eth.accounts.wallet.add(testContract.privateKey)
@@ -50,65 +48,63 @@ async function testCon2(){
 
 }
 
-async function testCon(){
+
+
+/**
+ * 创建一个以太坊用户
+ * @returns {Account}
+ */
+async function createETHUser(){
   var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-  // console.log('web3.currentProvider',web3.eth.currentProvider)
+  let user = web3.eth.accounts.create()
+  return user
+}
+
+/**
+ * 从区块链中获取幽能
+ * @param params
+ * @returns {PromiEvent<T>|any}
+ */
+async function getEngineFromContract(request){
+  let {address,engine} = request.params
+  console.log('addr======>',address)
+  var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
   let wallet = web3.eth.accounts.wallet.add(testContract.privateKey)
-  let Paccount = web3.eth.accounts.privateKeyToAccount(testContract.privateKey);
-  console.log('paccount=======>',Paccount)
-  let wallet2 = web3.eth.accounts.wallet
-   // console.log('wallet=========>',wallet2)
-  console.log('wallet.addres=========>',wallet)
-
-  web3.eth.defaultAccount = testContract.address
-  // console.log('account===>',await web3.eth.getAccounts())
-  let balance = await web3.eth.getBalance(wallet.address)
-  // let gasPrice = await web3.eth.getGasPrice()
-  console.log('balance========>',balance)
-  // console.log('gasPrice========>',gasPrice)
-  // // let coinBase = await web3.eth.getCoinbase()
-  // // console.log('coinBase========>',coinBase)
-  //
-  // console.log('web3.eth.defaultAccount ====>',web3.eth.defaultAccount )
-  // web3.eth.personal.unlockAccount(testContract.address)
   var myCon = new web3.eth.Contract(abi,testContract.conAddress)
-  // console.log('myCon==>',myCon.options)
-  //
-  // let bal = await myCon.methods.balanceOf(wallet.address).call()
-  // console.log('bal=====>',bal)
-  // let estimateGas = await myCon.methods.transfer(testUser.address,100).estimateGas()
-  // console.log('estimateGas=========>',estimateGas*gasPrice)
-  // console.log('estimateGas=========>',balance)
-  // web3.eth.sendTransaction({
-  //   from: wallet.address,
-  //   to: testUser.address,
-  //   gas: 21000,
-  //   value: 5000000
-  // },(err,result)=>{
-  //   if(err){
-  //     console.log('err=====>',err)
-  //     return err
-  //   }else{
-  //     console.log('result=====>',result)
-  //     return result
-  //   }
-  // })
-  // let bal = await myCon.methods.transfer(testUser.address,100).send({from: wallet.address, gas: 34674})
-  // return bal
+  let estimateGas = await myCon.methods.transfer(testUser.address,100).estimateGas()
+  console.log('estimateGas=========>',estimateGas)
+  myCon.methods.transfer(address,engine).send({from: wallet.address, gas: estimateGas*10}).on('transactionHash',(hash)=>{
+    }).on('confirmation', function(confirmationNumber, receipt){
+      console.log('confirmation======>',confirmationNumber)
+    if(confirmationNumber>=24){
+        console.log('is ok=======>',receipt)
+        return receipt
+    }
+    }).on('error', console.error)
+}
 
-  myCon.methods.transfer(testUser.address,100).send({from: wallet.address, gas:500000}).on('transactionHash',(hash)=>{
-    console.log('hash=========>',hash)
-  }).on('confirmation', function(confirmationNumber, receipt){
-    console.log('confirmationNumber=======>',confirmationNumber)
-  }).on('receipt', function( receipt){
-    console.log('receipt======>',receipt)
-    return receipt
-  }).on('error', console.error)
+/**
+ * 获取用户幽能数
+ * @param request
+ * @returns {ABIDefinition[]}
+ */
+async function getUserEngineNum(params){
+  let {address} = params
+  console.log('address======>',address)
+  var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
+  var myCon = new web3.eth.Contract(abi,testContract.conAddress)
+  return await myCon.methods.balanceOf(address).call()
+}
+
+async function testCon(request){
+  return await getUserEngineNum(request.params)
 }
 
 export const ethFuncs = {
-  testWeb3,
   createETHUser,
+  testWeb3,
   testCon,
-  testAccounts
+  testAccounts,
+  getEngineFromContract,
+  getUserEngineNum
 }

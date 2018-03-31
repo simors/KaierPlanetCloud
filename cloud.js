@@ -3,7 +3,7 @@
  */
 import LY from 'lvyii-engine'
 import {userFunctions} from './cloud/user'
-import {missionFuncs} from './cloud/util/mission'
+import {missionFuncs} from './cloud/mission'
 import {ethFuncs} from './cloud/util/eth'
 
 
@@ -13,7 +13,11 @@ LY.Cloud.define('cloudTest', function (request) {
   return text?text:'hello lvyii'
 })
 
-LY.Cloud.define('mongooseTest', userFunctions.testUser)
+//用户相关
+LY.Cloud.define('testUser', userFunctions.testUser)
+LY.Cloud.define('getUserEngine', userFunctions.getUserEngine)
+LY.Cloud.define('createETHUser', userFunctions.createETHUser)
+
 //任务相关
 LY.Cloud.define('getMissionAward', missionFuncs.getMissionAward)
 LY.Cloud.define('crystalSum', missionFuncs.crystalSum)
@@ -24,6 +28,6 @@ LY.Cloud.define('userGetEngine', missionFuncs.userGetEngine)
 
 //ethFuncs
 LY.Cloud.define('testWeb3', ethFuncs.testWeb3)
-LY.Cloud.define('createETHUser', ethFuncs.createETHUser)
 LY.Cloud.define('testCon', ethFuncs.testCon)
 LY.Cloud.define('testAccounts', ethFuncs.testAccounts)
+LY.Cloud.define('getEngineFromContract', ethFuncs.getEngineFromContract)
