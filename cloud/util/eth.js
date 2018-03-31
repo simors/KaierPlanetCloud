@@ -11,6 +11,9 @@ import {BigNumber} from 'bignumber.js';
 var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
 
 let abi = [{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"initialSupply","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
+let abi2 = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"tokens","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"from","type":"address"},{"name":"to","type":"address"},{"name":"tokens","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tokenOwner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"},{"name":"tokens","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tokenOwner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"tokenOwner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"}],"name":"Approval","type":"event"}]
+
+
 let testContract = {
   address: '0x5A498f4109cba199173A8827729690c5258224f5' ,
   privateKey: '0xd606e705e3e89f193de90fb1b00e25ce4ee07eb89bb4a62c9f22f496bc89ce8a',
@@ -73,13 +76,10 @@ async function getEngineFromContract(params){
   console.log('addr======>',address)
   console.log('engine======>',engine,typeof(engine))
   var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-  let enginebigNumber = new BigNumber(engine)
-  let engineBN = web3.utils.toBN(enginebigNumber)
-  console.log('engineBN=====>',engineBN,web3.utils.isBN(engineBN))
   let wallet = web3.eth.accounts.wallet.add(testContract.privateKey)
-  var myCon = new web3.eth.Contract(abi,testContract.conAddress)
-  let estimateGas = await myCon.methods.transfer(testUser.address,100).estimateGas()
-  return await myCon.methods.transfer(address, engineBN).send({from: wallet.address, gas: estimateGas*10})
+  var myCon = new web3.eth.Contract(abi2,testContract.con2Address)
+  // let estimateGas = await myCon.methods.transfer(testUser.address,100).estimateGas()
+  return await myCon.methods.transfer(address, engine*1e18).send({from: wallet.address, gas: 500000})
     // .on('transactionHash',(hash)=>{
     // }).on('confirmation', function(confirmationNumber, receipt){
     //   console.log('confirmation======>',confirmationNumber)
@@ -99,7 +99,7 @@ async function getUserEngineNum(params){
   let {address} = params
   console.log('address======>',address)
   var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-  var myCon = new web3.eth.Contract(abi,testContract.conAddress)
+  var myCon = new web3.eth.Contract(abi2,testContract.con2Address)
   return await myCon.methods.balanceOf(address).call()
 }
 

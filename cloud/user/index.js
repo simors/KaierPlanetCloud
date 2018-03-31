@@ -32,6 +32,11 @@ async function testUser(request) {
   // return userList
 }
 
+/**
+ * 添加用户的私链账户
+ * @param request
+ * @returns {Promise|string|*}
+ */
 async function addUserEthAccount(request){
   let {currentUser, params} = request
   let user = UserModel.findById(currentUser.id)
@@ -55,16 +60,21 @@ async function getUserEngine(request){
   let user = await UserModel.findById(userId)
   console.log('user======>',user)
   let engines = await ethFuncs.getUserEngineNum({address: user.address})
-  return engines
+  return engines*(1e-18)
 }
 
+/**
+ * 用户点击获取幽能
+ * @param request
+ * @returns {*}
+ */
 async function userAchieveEngine(request){
   let {userId, engineId} = request.params
   let engineRecord = await EngineRecord.findById(engineId)
   let user = await UserModel.findById(userId)
   if(userId == engineRecord.userId){
     try{
-      await ethFuncs.getEngineFromContract({
+      ethFuncs.getEngineFromContract({
         address: user.address,
         engine: engineRecord.engine
       })
