@@ -17,6 +17,7 @@ LY.Cloud.define('cloudTest', function (request) {
 LY.Cloud.define('testUser', userFunctions.testUser)
 LY.Cloud.define('getUserEngine', userFunctions.getUserEngine)
 LY.Cloud.define('createETHUser', userFunctions.createETHUser)
+LY.Cloud.define('userAchieveEngine', userFunctions.userAchieveEngine)
 
 //任务相关
 LY.Cloud.define('getMissionAward', missionFuncs.getMissionAward)
@@ -24,10 +25,11 @@ LY.Cloud.define('crystalSum', missionFuncs.crystalSum)
 LY.Cloud.define('setDeserveEngine', missionFuncs.addDeserveEngine)
 LY.Cloud.define('testMission', missionFuncs.testMission)
 LY.Cloud.define('sendEngineToUsers', missionFuncs.sendEngineToUsers)
-LY.Cloud.define('userGetEngine', missionFuncs.userGetEngine)
+LY.Cloud.define('getEngineNum', missionFuncs.getEngineNum)
 
 //ethFuncs
 LY.Cloud.define('testWeb3', ethFuncs.testWeb3)
 LY.Cloud.define('testCon', ethFuncs.testCon)
 LY.Cloud.define('testAccounts', ethFuncs.testAccounts)
 LY.Cloud.define('getEngineFromContract', ethFuncs.getEngineFromContract)
+LY.Cloud.define('testSchedule', ethFuncs.testSchedule)

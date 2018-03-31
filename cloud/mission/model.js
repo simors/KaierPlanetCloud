@@ -5,7 +5,7 @@ import mongoose from '../util/mongdUtil'
 
 let EngineRecord = new mongoose.Schema({
   userId: {type: String},
-  engine: {type: String},
+  engine: {type: Number},
   status: {type: Number},
 })
 

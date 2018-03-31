@@ -75,7 +75,7 @@ async function addDeserveEngine(params){
     }
     let engineRecord = new EngineRecordModel({
       userId: user._id,
-      engine: engine,
+      engine: engine.toFixed(10),
       status: 0 ,
     })
     await engineRecord.save()
@@ -101,12 +101,11 @@ async function sendEngineToUsers(){
       for(let i=0;i< userList.length;i++){
         crystalSum = crystalSum +userList[i].crystal
       }
-
       for(let i=0;i< userList.length;i++){
         await addDeserveEngine({userId: userList[i]._id, crystalSum: crystalSum})
       }
-      // testSum = crystalSum
-      return
+      testSum = crystalSum
+      return userList
     }
   }catch(e){
     return e
@@ -116,7 +115,7 @@ async function sendEngineToUsers(){
 /**
  * 用户获取幽能
  */
-async function userGetEngine(request){
+async function getEngineNum(request){
   let {userId} = request.params
   //从区块链中获取幽能
   let user = await UserModel.findById(userId)
@@ -134,5 +133,5 @@ export const missionFuncs = {
   addDeserveEngine,
   testMission,
   sendEngineToUsers,
-  userGetEngine
+  getEngineNum
 }

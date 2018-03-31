@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose')
 import UserModel from './model'
+import EngineRecord from '../mission/model'
 import {ethFuncs} from '../util/eth'
 
 /**
@@ -57,9 +58,34 @@ async function getUserEngine(request){
   return engines
 }
 
+async function userAchieveEngine(request){
+  let {userId, engineId} = request.params
+  let engineRecord = await EngineRecord.findById(engineId)
+  let user = await UserModel.findById(userId)
+  if(userId == engineRecord.userId){
+    try{
+      await ethFuncs.getEngineFromContract({
+        address: user.address,
+        engine: engineRecord.engine
+      })
+      engineRecord.status = 1
+      user.engine = user.engine + engineRecord.engine
+      user.availableEngineNum = user.availableEngineNum - 1
+      let userInfo = await user.save()
+      await engineRecord.save()
+      return userInfo
+    }catch(e){
+      console.log('e======>',e)
+      return e
+    }
+  }else{
+    return
+  }
+}
 
 export const userFunctions = {
   testUser,
   getUserEngine,
-  addUserEthAccount
+  addUserEthAccount,
+  userAchieveEngine
 }
