@@ -2,9 +2,6 @@
  * Created by lilu on 2018/3/24.
  */
 var Web3 = require('web3');
-var secp256k1 = require('secp256k1/elliptic')
-var createKeccakHash = require('keccak')
-var crypto = require('crypto')
 var schedule = require("node-schedule")
 import {BigNumber} from 'bignumber.js';
 
