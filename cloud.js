@@ -18,6 +18,7 @@ LY.Cloud.define('testUser', userFunctions.testUser)
 LY.Cloud.define('getUserEngine', userFunctions.getUserEngine)
 LY.Cloud.define('createETHUser', userFunctions.createETHUser)
 LY.Cloud.define('userAchieveEngine', userFunctions.userAchieveEngine)
+LY.Cloud.define('getTop10Users', userFunctions.getTop10Users)
 
 //任务相关
 LY.Cloud.define('getMissionAward', missionFuncs.getMissionAward)

@@ -93,9 +93,19 @@ async function userAchieveEngine(request){
   }
 }
 
+/**
+ * 排行榜
+ * @param request
+ * @returns {*}
+ */
+async function getTop10Users(request){
+  return await UserModel.find().sort({ engine: -1}).limit(2)
+}
+
 export const userFunctions = {
   testUser,
   getUserEngine,
   addUserEthAccount,
-  userAchieveEngine
+  userAchieveEngine,
+  getTop10Users
 }
